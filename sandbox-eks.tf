@@ -12,7 +12,7 @@ terraform {
   }
 }
 
-module "sandbox-network"{
+module "sandbox-network" {
   source = "./modules/network"
 }
 
@@ -41,10 +41,10 @@ module "sandbox-eks" {
 #   url = module.sandbox-eks.url
 # }
 
-module "argocd"{
-  source = "./modules/argocd"
-  host = module.sandbox-eks.host
+module "argocd" {
+  source                 = "./modules/argocd"
+  host                   = module.sandbox-eks.host
   cluster_ca_certificate = module.sandbox-eks.cluster_ca_certificate
-  token = module.sandbox-eks.token
-  url = module.sandbox-eks.url
+  token                  = module.sandbox-eks.token
+  url                    = module.sandbox-eks.url
 }
