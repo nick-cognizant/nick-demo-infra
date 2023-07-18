@@ -1,6 +1,6 @@
 provider "aws" {
   region  = "us-west-2"
-  # profile = "devAdmin"
+  profile = "devAdmin"
 }
 
 terraform {
@@ -8,7 +8,7 @@ terraform {
     bucket  = "leaf-infra"
     key     = "tfstate/dev/eks-sandbox/terraform.tfstate"
     region  = "us-west-2"
-    # profile = "devAdmin"
+    profile = "devAdmin"
   }
 }
 
