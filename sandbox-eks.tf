@@ -33,13 +33,13 @@ module "sandbox-eks" {
   remote_access_key     = "sandbox-dev-key-pair"
 }
 
-# module "neuroai"{
-#   source = "./modules/neuroai"
-#   host = module.sandbox-eks.host
-#   cluster_ca_certificate = module.sandbox-eks.cluster_ca_certificate
-#   token = module.sandbox-eks.token
-#   url = module.sandbox-eks.url
-# }
+module "service-account"{
+  source = "./modules/service-account"
+  host = module.sandbox-eks.host
+  cluster_ca_certificate = module.sandbox-eks.cluster_ca_certificate
+  token = module.sandbox-eks.token
+  url = module.sandbox-eks.url
+}
 
 module "argocd" {
   source                 = "./modules/argocd"
