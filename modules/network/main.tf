@@ -12,6 +12,7 @@ resource "aws_subnet" "subnet1" {
   map_public_ip_on_launch = true
   tags = {
     Name = "sandbox-1"
+    kubernetes.io/role/elb = "1"
   }
 }
 
@@ -22,6 +23,7 @@ resource "aws_subnet" "subnet2" {
   map_public_ip_on_launch = true
   tags = {
     Name = "sandbox-2"
+    kubernetes.io/role/elb = "1"
   }
 }
 
