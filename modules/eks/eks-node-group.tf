@@ -18,3 +18,9 @@ resource "aws_eks_node_group" "sandbox_node_group" {
   subnet_ids    = var.node_group_subnet_ids
   node_role_arn = aws_iam_role.node_group_role.arn
 }
+
+# Attach the managed policy to the role
+resource "aws_iam_role_policy_attachment" "additional_policy_attachment" {
+  role       = aws_iam_role.node_group_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+}
