@@ -1,3 +1,0 @@
-variable clusterName{
-    type = string
-}

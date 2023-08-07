@@ -1,6 +1,6 @@
 provider "aws" {
   region  = "us-west-2"
-  # profile = "devAdmin"
+  profile = "devAdmin"
 }
 
 terraform {
@@ -8,16 +8,20 @@ terraform {
     bucket  = "leaf-infra"
     key     = "tfstate/dev/eks-sandbox/terraform.tfstate"
     region  = "us-west-2"
-    # profile = "devAdmin"
+    profile = "devAdmin"
   }
 }
 
 module "sandbox-network" {
-  source = "./modules/network"
+  source = "../modules/network"
+  name = "sandbox"
+  vpc_cidr_blocks = "10.0.0.0/16"
+  subnet1_cidr_blocks = "10.0.1.0/24"
+  subnet2_cidr_blocks = "10.0.2.0/24"
 }
 
 module "sandbox-eks" {
-  source      = "./modules/eks"
+  source      = "../modules/eks"
   name        = "sandbox"
   k8s_version = "1.24"
 
@@ -33,16 +37,16 @@ module "sandbox-eks" {
   remote_access_key     = "sandbox-dev-key-pair"
 }
 
-module "service-account"{
-  source = "./modules/service-account"
-  host = module.sandbox-eks.host
+module "service-account" {
+  source                 = "../modules/service-account"
+  host                   = module.sandbox-eks.host
   cluster_ca_certificate = module.sandbox-eks.cluster_ca_certificate
-  token = module.sandbox-eks.token
-  url = module.sandbox-eks.url
+  token                  = module.sandbox-eks.token
+  url                    = module.sandbox-eks.url
 }
 
 module "argocd" {
-  source                 = "./modules/argocd"
+  source                 = "../modules/argocd"
   host                   = module.sandbox-eks.host
   cluster_ca_certificate = module.sandbox-eks.cluster_ca_certificate
   token                  = module.sandbox-eks.token

@@ -1,3 +1,7 @@
+variable "name"{
+  type = string
+}
+
 variable "host" {
   type = string
 }

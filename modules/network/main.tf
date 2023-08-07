@@ -1,28 +1,28 @@
 resource "aws_vpc" "my_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr_blocks
   tags = {
-    Name = "sandbox"
+    Name = var.name
   }
 }
 
 resource "aws_subnet" "subnet1" {
   vpc_id                  = aws_vpc.my_vpc.id
-  cidr_block              = "10.0.1.0/24"
+  cidr_block              = var.subnet1_cidr_blocks
   availability_zone       = "us-west-2a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "sandbox-1"
+    Name = "${var.name}-1"
     "kubernetes.io/role/elb" = "1"
   }
 }
 
 resource "aws_subnet" "subnet2" {
   vpc_id                  = aws_vpc.my_vpc.id
-  cidr_block              = "10.0.2.0/24"
+  cidr_block              = var.subnet2_cidr_blocks
   availability_zone       = "us-west-2b"
   map_public_ip_on_launch = true
   tags = {
-    Name = "sandbox-2"
+    Name = "${var.name}-2"
     "kubernetes.io/role/elb" = "1"
   }
 }

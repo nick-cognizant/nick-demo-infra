@@ -1,14 +1,14 @@
 data "aws_caller_identity" "current" {}
 
 resource "aws_iam_policy" "aws_load_balancer_controller" {
-  name        = "AWSLoadBalancerControllerIAMPolicy"
+  name        = "AWSLoadBalancerControllerIAMPolicy-${var.name}"
   path        = "/"
   description = "Policy for AWS Load Balancer Controller"
   policy      = file("${path.module}/iam_policy.json")
 }
 
 resource "aws_iam_role" "aws_load_balancer_controller_role" {
-  name = "aws-load-balancer-controller-role"
+  name = "aws-load-balancer-controller-role-${var.name}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
